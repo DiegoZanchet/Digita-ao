@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Master - Aprenda a Digitar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <h1>Typing Master</h1>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn active" data-view="home">
+                        🏠 Início
+                    </button>
+                    <button class="nav-btn" data-view="progress">
+                        📊 Progresso
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Home View -->
+            <section id="home-view" class="view active">
+                <!-- Hero Section -->
+                <div class="hero">
+                    <h2>Bem-vindo ao Typing Master</h2>
+                    <p>Aprenda a digitar rápido e com precisão através de lições estruturadas e exercícios progressivos. Comece do zero e se torne um mestre da digitação!</p>
+                    <button class="btn btn-primary" onclick="switchView('lesson')">Começar Agora</button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Lições Completadas</div>
+                        <div class="stat-value" id="stat-lessons">0</div>
+                        <div class="stat-info">de 6 lições</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Exercícios Feitos</div>
+                        <div class="stat-value" id="stat-exercises">0</div>
+                        <div class="stat-info">exercícios</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Velocidade Média</div>
+                        <div class="stat-value" id="stat-wpm">0</div>
+                        <div class="stat-info">palavras por minuto</div>
+                    </div>
+                </div>
+
+                <!-- Lessons List -->
+                <div class="lessons-section">
+                    <h3>Escolha uma Lição</h3>
+                    <div id="lessons-list" class="lessons-grid"></div>
+                </div>
+            </section>
+
+            <!-- Lesson View -->
+            <section id="lesson-view" class="view">
+                <div class="lesson-container">
+                    <!-- Sidebar -->
+                    <aside class="lesson-sidebar">
+                        <h3>Lições</h3>
+                        <div id="sidebar-lessons" class="sidebar-lessons"></div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <div class="lesson-main">
+                        <!-- Lesson Info -->
+                        <div id="lesson-info" class="lesson-info"></div>
+
+                        <!-- Exercise Navigation -->
+                        <div class="exercise-nav">
+                            <h3 id="exercise-title">Exercício 1 de 3</h3>
+                            <div class="progress-bar">
+                                <div id="exercise-progress" class="progress-fill"></div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise List -->
+                        <div id="exercise-list" class="exercise-list"></div>
+
+                        <!-- Start Button -->
+                        <button class="btn btn-primary w-full" onclick="switchView('exercise')">
+                            Começar Exercício
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exercise View -->
+            <section id="exercise-view" class="view">
+                <div class="exercise-container">
+                    <!-- Instructions -->
+                    <div id="exercise-instructions" class="exercise-instructions"></div>
+
+                    <!-- Target Text -->
+                    <div id="target-text" class="target-text"></div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-section">
+                        <div class="progress-label">
+                            <span>Progresso</span>
+                            <span id="progress-count">0 / 0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="typing-progress" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <textarea 
+                        id="typing-input" 
+                        class="typing-input" 
+                        placeholder="Clique aqui e comece a digitar..."
+                        spellcheck="false"
+                    ></textarea>
+
+                    <!-- Stats -->
+                    <div id="exercise-stats" class="stats-grid"></div>
+
+                    <!-- Feedback -->
+                    <div id="exercise-feedback" class="exercise-feedback"></div>
+
+                    <!-- Controls -->
+                    <div class="exercise-controls">
+                        <button class="btn btn-outline" onclick="resetExercise()">
+                            🔄 Recomeçar
+                        </button>
+                        <button id="next-btn" class="btn btn-primary" style="display: none;" onclick="nextExercise()">
+                            Próximo Exercício
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress View -->
+            <section id="progress-view" class="view">
+                <h2>Seu Progresso</h2>
+
+                <!-- Overall Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Progresso Total</div>
+                        <div class="stat-value" id="total-progress">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Lições Completadas</div>
+                        <div class="stat-value" id="progress-lessons">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Exercícios Feitos</div>
+                        <div class="stat-value" id="progress-exercises">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Precisão Média</div>
+                        <div class="stat-value" id="progress-accuracy">0%</div>
+                    </div>
+                </div>
+
+                <!-- Progress by Lesson -->
+                <div class="progress-by-lesson">
+                    <h3>Progresso por Lição</h3>
+                    <div id="lesson-progress-list"></div>
+                </div>
+
+                <!-- Best Performances -->
+                <div id="best-performances" class="best-performances" style="display: none;">
+                    <h3>Melhores Desempenhos</h3>
+                    <div id="best-performances-list" class="stats-grid"></div>
+                </div>
+
+                <button class="btn btn-primary w-full" onclick="switchView('home')">
+                    Voltar ao Início
+                </button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="data/lessons.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
