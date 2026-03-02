@@ -1,0 +1,8 @@
+body {
+    background-color: rgb(40, 217, 223);
+}
+
+.titulo{
+    align-items: center;
+    display : flex;
+}
